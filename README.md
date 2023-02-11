@@ -4,12 +4,13 @@ Analysis:
 
 This project used (VBA) programming language to analyze generate more than 750K stock market data.
 The results of the analyses provide insights into about 3K unique stock's 
-➊ Ticker Symbol, 
-➋ Yearly Change,
-➌ Percent Change,
-➍ Total Stock Volume. 
+➊ Ticker Symbol,  
 
+➋ Yearly Change,  
 
+➌ Percent Change,  
+
+➍ Total Stock Volume,  
 
 
 
