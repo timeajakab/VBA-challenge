@@ -1,21 +1,5 @@
 
-Analysis:
-
-
-This project used (VBA) programming language to analyze generate more than 750K stock market data.
-The results of the analyses provide insights into about 3K unique stock's   
-
-➊ Ticker Symbol,   
-
-➋ Yearly Change,  
-
-➌ Percent Change,  
-
-➍ Total Stock Volume,  
-
-
-
-
+Homework Description + Results
 
 # VBA Homework: The VBA of Wall Street
 
@@ -96,5 +80,28 @@ After saving your work, create a shareable link and submit the link to <https://
 - - -
 
 © 2022 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+
+
+
+Analysis:
+
+
+This project used (VBA) programming language to analyze generate more than 750K stock market data.
+The results of the analyses provide insights into about 3K unique stock's   
+
+➊ Ticker Symbol,   
+
+➋ Yearly Change,  
+
+➌ Percent Change,  
+
+➍ Total Stock Volume,  
+
+RESULTS:  
+
+
+2018: THB had the greatest yearly percent change increase of all stocks at 141.42%.
+2019: RYU had the greatest yearly percent change increase of all stocks at 190.03%.
+2020: YDI had the greatest yearly percent change increase of all stocks at 188.76%.
 
 
