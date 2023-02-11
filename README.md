@@ -75,8 +75,11 @@ The results of the analyses provide insights into about 3K unique stock's
 
 ## RESULTS:  
 
-2018: THB had the greatest yearly percent change increase of all stocks at 141.42%.
-2019: RYU had the greatest yearly percent change increase of all stocks at 190.03%.
-2020: YDI had the greatest yearly percent change increase of all stocks at 188.76%.
+2018: THB had the greatest yearly percent change increase of all stocks at 141.42%.  
+
+2019: RYU had the greatest yearly percent change increase of all stocks at 190.03%.  
+
+2020: YDI had the greatest yearly percent change increase of all stocks at 188.76%.  
+
 
 
