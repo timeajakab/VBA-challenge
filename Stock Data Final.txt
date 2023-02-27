@@ -1,0 +1,156 @@
+Sub ticker():
+
+Dim ws As Worksheet
+
+For Each ws In Sheets
+
+'define category headings
+
+ws.Cells(1, 9).Value = "Ticker"
+ws.Cells(1, 10).Value = "Yearly Change"
+ws.Cells(1, 11).Value = "Percent Change"
+ws.Cells(1, 12).Value = "Total Stock Volume"
+ws.Cells(1, 16).Value = "Ticker"
+ws.Cells(1, 17).Value = "Value"
+ws.Cells(2, 15).Value = "Greatest % Increase"
+ws.Cells(3, 15).Value = "Greatest % Decrease"
+ws.Cells(4, 15).Value = "Greatest Total Volume"
+
+'define general values
+
+Dim I As Long
+Dim j As Long
+
+'define worksheet values
+
+Dim ticker As String
+Dim openprice As Double
+Dim closeprice As Double
+Dim totalsv As LongLong
+Dim great_totvol As LongLong
+Dim great_totvol_ticker As String
+Dim percent_increase As Double
+Dim percent_decrease As Double
+Dim percent_increase_ticker As String
+Dim percent_decrease_ticker As String
+
+'define columns and rows
+
+Dim lastcolumn As Long
+Dim lastrow As Long
+
+'calcuate how long/wide rows and columns are to use in loop
+
+lastcolumn = ws.Cells(1, Columns.Count).End(xlToLeft).Column
+lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+'assign values to defined things
+
+ticker = ws.Cells(2, 1).Value
+j = 2          'to start counting values after the header
+totalsv = 0 'to define a value for stock to start from
+great_totvol = 0 'to define a value for greatest total volume to start from
+percent_increase = 0 'to define a value for greatest percent increase to start from
+percent_decrease = 0 'to define a value for greatest percent decrease to start from
+
+'create loop
+
+    For I = 2 To lastrow
+
+'if the value in column a = the current ticker than the values of the included ws.Cells are added to the total stock volume of that ticker type
+    
+        If ws.Cells(I + 1, 1).Value = ws.Cells(I, 1) Then
+            totalsv = totalsv + ws.Cells(I, 7)  'tsv equals 0 + all the applicable values in the <vol> column
+        End If
+       
+        If ws.Cells(I - 1, 1).Value <> ws.Cells(I, 1) Then 'if the last read value does not equal the current ticker then
+            openprice = ws.Cells(I, 3).Value  'defining the value of openprice
+        End If
+       
+         'if statement for change formulas
+        If ws.Cells(I + 1, 1).Value <> ws.Cells(I, 1) Then
+            totalsv = totalsv + ws.Cells(I, 7) 'to include the last row
+            ws.Cells(j, 9).Value = ticker      'places the value from <ticker> column in the ticker column
+            ws.Cells(j, 12).Value = totalsv  'places the value from <vol> column in the tsv column
+            closeprice = ws.Cells(I, 6).Value  'defining the value of closeprice
+            ws.Cells(j, 10).Value = (closeprice - openprice) 'places the value of open price column minus the closed price column in yearly change column
+            ws.Cells(j, 11).Value = (ws.Cells(j, 10).Value / openprice) 'places the value of the percent change in price columns in the percent change column
+            ws.Cells(j, 11).NumberFormat = "0.00%"
+            
+         'make the ws.Cells red when the value is negative
+        If ws.Cells(j, 10) < 0 Then
+        ws.Cells(j, 10).Interior.ColorIndex = 3
+        Else
+        'make the ws.Cells green when the value is positive
+        ws.Cells(j, 10).Interior.ColorIndex = 4
+        End If
+            
+             'determine largest volume and store
+             If totalsv > great_totvol Then
+                 great_totvol = totalsv
+                 great_totvol_ticker = ticker
+          End If
+             
+             'determine greatest % increase
+             If ws.Cells(j, 11) > percent_increase Then
+                percent_increase = ws.Cells(j, 11)
+                percent_increase_ticker = ticker
+           End If
+    
+        'determine greatest % decrease
+           If ws.Cells(j, 11) < percent_decrease Then
+                percent_decrease = ws.Cells(j, 11)
+                percent_decrease_ticker = ticker
+            End If
+          
+            totalsv = 0 'resets the tsv to start counting the next ticker type from zero
+            ticker = ws.Cells(I + 1, 1).Value
+            j = j + 1
+            End If
+    
+    Next I
+    
+
+'when the loop is complete the highest number remains in the field and moves to the cell
+ws.Cells(4, 17).Value = great_totvol
+ws.Cells(4, 16).Value = great_totvol_ticker
+ws.Cells(3, 17).Value = percent_decrease
+ws.Cells(3, 17).NumberFormat = "0.00%"
+ws.Cells(3, 16).Value = percent_decrease_ticker
+ws.Cells(2, 17).Value = percent_increase
+ws.Cells(2, 17).NumberFormat = "0.00%"
+ws.Cells(2, 16).Value = percent_increase_ticker
+
+'format the ws.Cells to fit the data
+Range("I1:R1").EntireColumn.AutoFit
+Range("I1:R1").NumberFormat = "0.00"
+
+Next ws 'loop into next worksheet in the workbook
+
+End Sub
+
+Sub reset():
+
+Dim ws As Worksheet
+
+For Each ws In Sheets
+
+'define columns and rows
+
+Dim lastcolumn As Long
+Dim lastrow As Long
+
+'calcuate how long/wide rows and columns are to use in loop
+
+lastcolumn = ws.Cells(1, Columns.Count).End(xlToLeft).Column
+lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+'reset the field to try again
+
+Range("I1:Q" & lastrow).Value = ""
+Range("I1:Q" & lastrow).ClearFormats
+
+Next ws 'loop into next worksheet in the workbook
+
+
+End Sub
